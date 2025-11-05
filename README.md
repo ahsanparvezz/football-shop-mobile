@@ -79,3 +79,16 @@
  7. Jelaskan bagaimana kamu menambahkan navigasi untuk berpindah antar layar di aplikasi Flutter.
     Navigasi pake Navigator.push() buka halaman baru, Navigator.pop() tutup halaman. Kaya buka-tutup pintu antar layar.
     
+
+## Tugas 8
+1. Jelaskan perbedaan antara Navigator.push() dan Navigator.pushReplacement() pada Flutter. Dalam kasus apa sebaiknya masing-masing digunakan pada aplikasi Football Shop kamu?
+Navigator.push() digunakan saat Anda ingin menumpuk halaman baru di atas halaman saat ini, seperti saat membuka detail produk dari daftar, sehingga pengguna bisa menekan tombol "kembali" untuk kembali ke daftar tersebut. Sebaliknya, Navigator.pushReplacement() mengganti halaman saat ini dengan yang baru dan menghapus halaman lama dari riwayat, contohnya seperti setelah pengguna berhasil login atau logout agar mereka tidak bisa kembali ke halaman sebelumnya. Singkatnya, push() dipakai untuk alur yang bisa "kembali" (seperti melihat detail), sedangkan pushReplacement() dipakai untuk alur yang "satu arah" (seperti mengubah status login).
+
+2. Bagaimana kamu memanfaatkan hierarchy widget seperti Scaffold, AppBar, dan Drawer untuk membangun struktur halaman yang konsisten di seluruh aplikasi?
+aya memanfaatkan Scaffold sebagai "kerangka" atau cetakan dasar di setiap halaman, baik di menu.dart maupun product_form.dart. Scaffold ini praktis karena sudah menyediakan slot standar untuk AppBar di bagian atas dan Drawer untuk menu samping. Kunci konsistensinya adalah saya membuat LeftDrawer menjadi satu widget terpisah (left_drawer.dart). Widget ini kemudian saya "pasang" di properti drawer pada Scaffold di setiap halaman. Hasilnya, menu navigasi di seluruh aplikasi saya jadi identik dan terkelola dari satu file saja.
+
+3. Dalam konteks desain antarmuka, apa kelebihan menggunakan layout widget seperti Padding, SingleChildScrollView, dan ListView saat menampilkan elemen-elemen form? Berikan contoh penggunaannya dari aplikasi kamu.
+Kelebihan utamanya adalah untuk mengatur kerapian visual dan, yang terpenting, menghindari error "overflow". Di file product_form.dart saya, setiap TextFormField (seperti Nama dan Harga) saya bungkus dengan Padding untuk memberi "ruang napas" agar form tidak menempel ke pinggir layar. Nah, widget yang paling krusial adalah SingleChildScrollView. Saya membungkus seluruh Column yang berisi elemen form saya dengan widget ini. Tujuannya jelas: saat keyboard HP muncul, layar 'kan jadi sempit. Tanpa SingleChildScrollView, field di bagian bawah atau tombol "Simpan" tidak akan bisa diakses dan aplikasi akan error. Dengan widget ini, form saya jadi bisa di-scroll dengan aman.
+
+4. Bagaimana kamu menyesuaikan warna tema agar aplikasi Football Shop memiliki identitas visual yang konsisten dengan brand toko?
+Saya mengaturnya secara terpusat di file main.dart, tepat di dalam widget MaterialApp. Di situ ada properti theme, yang saya isi dengan ThemeData. Dengan menentukan colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue), saya memberi tahu Flutter bahwa biru adalah warna utama brand saya. Secara otomatis, AppBar di semua halaman menjadi biru, dan ElevatedButton (tombol "Simpan") di halaman form juga menggunakan warna biru yang sama. Ini adalah cara yang efisien untuk memastikan identitas visual toko saya konsisten tanpa harus mengatur warna di tiap widget satu per satu.
